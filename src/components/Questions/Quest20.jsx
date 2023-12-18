@@ -8,6 +8,9 @@ const Quest20 = () => {
   const [error, setError] = useState(null);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  console.log(data, error)
    
 
     useEffect(() => {
@@ -21,28 +24,32 @@ const Quest20 = () => {
     const onFinish = async () => {
       let score = localStorage.getItem('score');
       let parsedScore = JSON.parse(score);
-
       if(parsedScore > 50) {
         setPassed(true);
+      }
+    }
 
-        try {
-          const response = await fetch('https://mhcd-exam-portal.onrender.com', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, email }),
-          });
+    const onDone = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('https://mhcd-exam-portal.onrender.com/exams/ttt', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email }),
+        });
 
-          if (!response.ok) {
-            throw new Error(`Request failed with status: ${response.status}`);
-          }
-
-          const result = await response.json();
-          setData(result);
-        } catch (error) {
-          setError(error.message || 'An error occurred.');
+        if (!response.ok) {
+          throw new Error(`Request failed with status: ${response.status}`);
         }
+
+        const result = await response.json();
+        setLoading(false);
+        setData(result);
+      } catch (error) {
+        setError(error.message || 'An error occurred.');
+        setLoading(false);
       }
     }
 
@@ -122,10 +129,11 @@ const Quest20 = () => {
               <h4>Enter A Valid Email</h4>
               <input onChange={(e) => setEmail(e.target.value)} className="outline-none px-3 py-2 bg-slate-200" type="text" placeholder="Your Email" />
             </div>
-            <button className="bg-purple-500 text-white rounded-md py-2 px-3 mt-3">Receive Certificate</button>
+            <button onClick={onDone} className="bg-purple-500 text-white rounded-md py-2 px-3 mt-3">Receive Certificate</button>
 
             <p className="bg-green-200 text-green-500">{data && data.message}</p>
             <p className="text-red-500 bg-orange-200">{error && error.error}</p>
+            <p>{loading ? 'Loading...' : ''}</p>
          </div>
         </div>
       )}
