@@ -6,7 +6,7 @@ import RightArr from "../images/right-arrow.png";
 
 
 const ExamPreview = () => {
-  const [countdownTime, setCountdownTime] = useState(59);
+  const [countdownTime, setCountdownTime] = useState(1);
   const [isNotLoading, setIsNotLoading] = useState(true);
   const [questCount, setQuestCount] = useState(1);
   const [grades, setGrades] = useState(0);
@@ -42,7 +42,7 @@ const ExamPreview = () => {
 
   return (
     <div className='w-full h-[87.5vh]'>
-      {isNotLoading ? (
+      {countdownTime !== 0 ? (
         <div className='flex justify-center items-center w-full h-full'>
             <div className="text-center flex flex-col items-center">
                 <RingLoader />

@@ -9,6 +9,7 @@ const Quest20 = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   console.log(data, error)
    
@@ -26,6 +27,8 @@ const Quest20 = () => {
       let parsedScore = JSON.parse(score);
       if(parsedScore > 50) {
         setPassed(true);
+      } else {
+        setFailed(true);
       }
     }
 
@@ -55,64 +58,73 @@ const Quest20 = () => {
 
   return (
     <div>
-      {passed ? (
-        <div className="m-6">
-          <h2>
-          Online digital learning enhances large groups participation without geographical barriers.
-          </h2>
-    
-          <h5 className="mt-4">Select One(1):</h5>
-    
-          <div className="bg-slate-200 px-2 pt-[1px] pb-2">
-            {/* Answers */}
-            <div className="mt-5">
-              <label className="flex items-start">
-                <input
-                  type="radio"
-                  name="answer"
-                  onChange={(e) => setAnswer(e.target.value)}
-                  value={
-                    "Strongly disagree "
-                  }
-                />
-                <p className="ml-2 text-sm">
-                  Strongly disagree 
-                </p>
-              </label>
-            </div>
-            <div className="mt-5">
-              <label className="flex items-start">
-                <input onChange={(e) => setAnswer(e.target.value)} type="radio" name="answer" value={"Strongly agree"} />
-                <p className="ml-2 text-sm">Strongly agree</p>
-              </label>
-            </div>
-            <div className="mt-5">
-              <label className="flex items-start">
-                <input
-                  type="radio"
-                  name="answer"
-                  onChange={(e) => setAnswer(e.target.value)}
-                  value={"None of the above"}
-                />
-                <p className="ml-2 text-sm">None of the above</p>
-              </label>
-            </div>
-            <div className="mt-5">
-              <label className="flex items-start">
-                <input
-                  type="radio"
-                  name="answer"
-                  onChange={(e) => setAnswer(e.target.value)}
-                  value={"All of the above"}
-                />
-                <p className="ml-2 text-sm">
-                All of the above
-                </p>
-              </label>
-            </div>
-          </div>
-    
-          <button onClick={onFinish} className="w-full bg-[#EF6330] mt-32 rounded-md text-white font-semibold py-2">Submit</button>
+      {!passed ? (
+        <div>
+          {failed ? (
+              <div className="w-full h-[90vh] flex justify-center items-center text-center">
+                😢
+                <h1 className="text-4xl font-semibold">You did not pass the test, Try Again.</h1>
+              </div>
+            ) : (
+              <div className="m-6">
+                <h2>
+                Online digital learning enhances large groups participation without geographical barriers.
+                </h2>
+          
+                <h5 className="mt-4">Select One(1):</h5>
+          
+                <div className="bg-slate-200 px-2 pt-[1px] pb-2">
+                  {/* Answers */}
+                  <div className="mt-5">
+                    <label className="flex items-start">
+                      <input
+                        type="radio"
+                        name="answer"
+                        onChange={(e) => setAnswer(e.target.value)}
+                        value={
+                          "Strongly disagree "
+                        }
+                      />
+                      <p className="ml-2 text-sm">
+                        Strongly disagree 
+                      </p>
+                    </label>
+                  </div>
+                  <div className="mt-5">
+                    <label className="flex items-start">
+                      <input onChange={(e) => setAnswer(e.target.value)} type="radio" name="answer" value={"Strongly agree"} />
+                      <p className="ml-2 text-sm">Strongly agree</p>
+                    </label>
+                  </div>
+                  <div className="mt-5">
+                    <label className="flex items-start">
+                      <input
+                        type="radio"
+                        name="answer"
+                        onChange={(e) => setAnswer(e.target.value)}
+                        value={"None of the above"}
+                      />
+                      <p className="ml-2 text-sm">None of the above</p>
+                    </label>
+                  </div>
+                  <div className="mt-5">
+                    <label className="flex items-start">
+                      <input
+                        type="radio"
+                        name="answer"
+                        onChange={(e) => setAnswer(e.target.value)}
+                        value={"All of the above"}
+                      />
+                      <p className="ml-2 text-sm">
+                      All of the above
+                      </p>
+                    </label>
+                  </div>
+                </div>
+          
+                <button onClick={onFinish} className="w-full bg-[#EF6330] mt-32 rounded-md text-white font-semibold py-2">Submit</button>
+              </div>
+            )}
         </div>
       ) : (
         <div class="w-full text-center flex flex-col justify-center items-center mt-5">
