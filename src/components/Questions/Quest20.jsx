@@ -4,6 +4,10 @@ import Award from "../../images/award.png";
 const Quest20 = () => {
   const [answer, setAnswer] = useState('');
   const [passed, setPassed] = useState(false);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
    
 
     useEffect(() => {
@@ -14,12 +18,31 @@ const Quest20 = () => {
         }
     }, [answer]);
 
-    const onFinish = () => {
+    const onFinish = async () => {
       let score = localStorage.getItem('score');
       let parsedScore = JSON.parse(score);
 
       if(parsedScore > 50) {
         setPassed(true);
+
+        try {
+          const response = await fetch('https://mhcd-exam-portal.onrender.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, email }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`Request failed with status: ${response.status}`);
+          }
+
+          const result = await response.json();
+          setData(result);
+        } catch (error) {
+          setError(error.message || 'An error occurred.');
+        }
       }
     }
 
@@ -93,13 +116,16 @@ const Quest20 = () => {
          <div className="w-full flex flex-col justify-center items-center">
             <div className="w-[90vw] mt-4">
               <h4>Enter Your Full Name</h4>
-              <input className="outline-none px-3 py-2 bg-slate-200"  type="text" placeholder="Enter You Full Name" />
+              <input onChange={(e) => setUsername(e.target.value)} className="outline-none px-3 py-2 bg-slate-200"  type="text" placeholder="Enter You Full Name" />
             </div>
             <div className="w-[90vw] mt-4">
               <h4>Enter A Valid Email</h4>
-              <input  className="outline-none px-3 py-2 bg-slate-200" type="text" placeholder="Your Email" />
+              <input onChange={(e) => setEmail(e.target.value)} className="outline-none px-3 py-2 bg-slate-200" type="text" placeholder="Your Email" />
             </div>
             <button className="bg-purple-500 text-white rounded-md py-2 px-3 mt-3">Receive Certificate</button>
+
+            <p className="bg-green-200 text-green-500">{data && data.message}</p>
+            <p className="text-red-500 bg-orange-200">{error && error.error}</p>
          </div>
         </div>
       )}
