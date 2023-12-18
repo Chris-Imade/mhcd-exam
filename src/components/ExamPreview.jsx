@@ -6,7 +6,7 @@ import RightArr from "../images/right-arrow.png";
 
 
 const ExamPreview = () => {
-  const [countdownTime, setCountdownTime] = useState(1);
+  const [countdownTime, setCountdownTime] = useState(59);
   const [isNotLoading, setIsNotLoading] = useState(true);
   const [questCount, setQuestCount] = useState(1);
   const [grades, setGrades] = useState(0);
