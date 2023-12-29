@@ -103,6 +103,9 @@ const Quest20 = () => {
                   </label>
                 </div>
               </div>
+
+
+              <button onClick={onFinish} className="w-full bg-[#EF6330] mt-32 rounded-md text-white font-semibold py-2">Submit</button>
             </div>
           )}
         </div>

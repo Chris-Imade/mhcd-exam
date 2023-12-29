@@ -5,7 +5,7 @@ import RightArr from "../images/right-arrow.png";
 import { Quest1, Quest10, Quest11, Quest12, Quest13, Quest14, Quest15, Quest16, Quest17, Quest18, Quest19, Quest2, Quest20, Quest3, Quest4, Quest5, Quest6, Quest7, Quest8, Quest9 } from "./QuestionCACR/index";
 
 const CustomerExamPreview = () => {
-  const [countdownTime, setCountdownTime] = useState(9);
+  const [countdownTime, setCountdownTime] = useState(59);
   const [isNotLoading, setIsNotLoading] = useState(true);
   const [questCount, setQuestCount] = useState(1);
   const [grades, setGrades] = useState(0);
