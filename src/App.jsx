@@ -2,13 +2,16 @@ import "./App.css";
 import { memo, useEffect, useState } from "react";
 import Loader from "./components/Loader";
 import LogoImage from "./images/mhcd-logo.png";
-import { ExamPreview, ExamsList } from "./components";
+import { CustomerExamPreview, ExamPreview, ExamsList } from "./components";
 
 const App = () => {
   const [showLoader, setShowLoader] = useState(true);
-  const [selectedCourse, setSelectedCourse] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState("");
 
-  localStorage.setItem('score', 0);
+  console.log(selectedCourse);
+
+  localStorage.setItem("score", 0);
+  localStorage.setItem("score-cacr", 0);
 
   useEffect(() => {
     const toggleShow = setTimeout(() => {
@@ -27,12 +30,16 @@ const App = () => {
         <h4 className="ml-3 font-semibold text-2xl">MHCD E-Exams</h4>
       </div>
       <hr />
-      
-      {!selectedCourse ? 
+
+      {!selectedCourse ? (
         <ExamsList setSelectedCourse={setSelectedCourse} />
-      :
+      ) : selectedCourse === "Train The Triner" ? (
         <ExamPreview />
-      }
+      ) : selectedCourse === "Customer Acquisition" ? (
+        <CustomerExamPreview />
+      ) : (
+        <ExamsList setSelectedCourse={setSelectedCourse} />
+      )}
     </div>
   );
 };

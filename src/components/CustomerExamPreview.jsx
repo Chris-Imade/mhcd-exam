@@ -1,35 +1,17 @@
 import React, { useState, useEffect, memo } from "react";
 import { RingLoader } from "react-spinners";
-import {
-  Quest11,
-  Quest12,
-  Quest13,
-  Quest14,
-  Quest15,
-  Quest16,
-  Quest17,
-  Quest18,
-  Quest19,
-  Quest20,
-  QuestEight,
-  QuestFive,
-  QuestFour,
-  QuestNine,
-  QuestOne,
-  QuestSeven,
-  QuestSix,
-  QuestTen,
-  QuestionThree,
-  QuestionTwo,
-} from "./QuestionsTTT";
 import LeftArr from "../images/left-arrow.png";
 import RightArr from "../images/right-arrow.png";
+import { Quest1, Quest10, Quest11, Quest12, Quest13, Quest14, Quest15, Quest16, Quest17, Quest18, Quest19, Quest2, Quest20, Quest3, Quest4, Quest5, Quest6, Quest7, Quest8, Quest9 } from "./QuestionCACR/index";
 
-const ExamPreview = () => {
-  const [countdownTime, setCountdownTime] = useState(59);
+const CustomerExamPreview = () => {
+  const [countdownTime, setCountdownTime] = useState(9);
   const [isNotLoading, setIsNotLoading] = useState(true);
   const [questCount, setQuestCount] = useState(1);
   const [grades, setGrades] = useState(0);
+
+  let score = localStorage.getItem("score-cacr");
+
 
   // localStorage.setItem('questCount', JSON.stringify(questCount));
 
@@ -78,16 +60,16 @@ const ExamPreview = () => {
               <div className={`w-[${Math.min(progressWidth, 100)}%] h-3 bg-[#E85F2F]`}></div>
             </div> */}
 
-          {questCount === 1 && <QuestOne />}
-          {questCount === 2 && <QuestionTwo />}
-          {questCount === 3 && <QuestionThree />}
-          {questCount === 4 && <QuestFour />}
-          {questCount === 5 && <QuestFive />}
-          {questCount === 6 && <QuestSix />}
-          {questCount === 7 && <QuestSeven />}
-          {questCount === 8 && <QuestEight />}
-          {questCount === 9 && <QuestNine />}
-          {questCount === 10 && <QuestTen />}
+          {questCount === 1 && <Quest1 />}
+          {questCount === 2 && <Quest2 />}
+          {questCount === 3 && <Quest3 />}
+          {questCount === 4 && <Quest4 />}
+          {questCount === 5 && <Quest5 />}
+          {questCount === 6 && <Quest6 />}
+          {questCount === 7 && <Quest7 />}
+          {questCount === 8 && <Quest8 />}
+          {questCount === 9 && <Quest9 />}
+          {questCount === 10 && <Quest10 />}
           {questCount === 11 && <Quest11 />}
           {questCount === 12 && <Quest12 />}
           {questCount === 13 && <Quest13 />}
@@ -107,6 +89,11 @@ const ExamPreview = () => {
               <p className="font-semibold text-l">20</p>
             </div>
           </div>
+
+            <div className="absolute bottom-7 left-[45%] flex justify-between items-center w-28">
+                <p className="text-xl font-semibold">{score + "/" + 100}</p>
+            </div>
+
           {/* Controls */}
           <div className="absolute bottom-5 left-5 flex justify-between items-center w-28">
             {/* <button onClick={() => setQuestCount((prevCount) => prevCount >= 2 ? prevCount - 1 : 1)} className='w-12 h-12 flex justify-center items-center bg-slate-300'>
@@ -129,4 +116,4 @@ const ExamPreview = () => {
   );
 };
 
-export default memo(ExamPreview);
+export default memo(CustomerExamPreview);
